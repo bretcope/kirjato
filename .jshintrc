@@ -1,0 +1,18 @@
+{
+  "node": true,
+  "camelcase": true,
+  "proto": true,
+  "boss": true,
+  "eqeqeq": true,
+  "freeze": true,
+  "immed": true,
+  "latedef": "nofunc",
+  "newcap": true,
+  "noarg": true,
+  "nonbsp": true,
+  "undef": true,
+  "strict": true,
+  "esnext": true,
+  "laxbreak": true,
+  "noyield": true
+}
