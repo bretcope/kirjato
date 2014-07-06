@@ -4,4 +4,30 @@ html
 		title= title
 		link(type='text/css', rel='stylesheet', href=css.common)
 	body
-		block content
+		.page
+			.header
+				block Header
+					.logo
+						block Logo
+							a(href=nav.home)
+								img(src=img.logo)
+					.nav
+						block Nav
+							a(href=nav.home) Home
+							a(href=nav.scribe) Scribe
+							a(href='/sandbox') Sandbox
+							a(href='') Order Pizza
+							a(href='') Exterminate
+			.content
+				block Content
+			.footer
+				block Footer
+					.poweredby
+						a(href='http://kirjato.com') Powered by Kirjato
+					.copyright
+						| &copy; 2014 Bret Copeland | 
+						a(href='') Privacy Policy
+						|  | 
+						a(href='') Terms of Use
+		
+		block Init

@@ -35,6 +35,11 @@ HomeController.indexGet = function * ()
 	yield this.render('home/index');
 };
 
+HomeController.sandboxGet = function * ()
+{
+	yield this.render('home/sandbox');
+};
+
 /* -------------------------------------------------------------------
  * Private Methods << Keep in alphabetical order >>
  * ---------------------------------------------------------------- */

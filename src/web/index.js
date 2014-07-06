@@ -61,7 +61,10 @@ function setupMiddleware (app)
 	
 	var cssDir = Path.resolve(__dirname, '../..', Config.settings.site.writablePath, 'css');
 	var less = thunkify(lessMiddleware(__dirname + '/less', {
-		dest: cssDir
+		dest: cssDir,
+		compiler: {
+			compress: Config.tier === 'local'
+		}
 	}));
 	app.use(koaMount('/static/css', function * (next)
 	{
@@ -79,8 +82,17 @@ function setupMiddleware (app)
 		compileDebug: isLocal,
 		locals: {
 			title: Config.settings.site.name,
+			nav: {
+				home: Kirja.url('/'),
+				scribe: Kirja.url('/scribe'),
+				login: Kirja.url('/login'),
+				logout: Kirja.url('/logout')
+			},
 			css: {
 				common: Kirja.url('/static/css/common.css')
+			},
+			img: {
+				logo: Kirja.url(Config.settings.site.logoImage)
 			}
 		}
 	}));
@@ -92,6 +104,9 @@ function setupMiddleware (app)
 function setupRoutes (app)
 {
 	// --- Routes not requiring login ---
+	
+	if (Config.tier === 'local')
+		app.get('/sandbox', Controllers.Home.sandboxGet);
 
 	app.post('*', koaBody());
 	app.get('/', Controllers.Home.indexGet);

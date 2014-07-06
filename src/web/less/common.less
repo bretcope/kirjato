@@ -1,11 +1,116 @@
+@import "text";
+@import "boxes";
+@import "colors";
+
 html, body
 {
 	margin: 0;
-	color: #333;
-	background: #9cf;
+	.normal-font;
+	.normal-size;
+	color: @primary;
+	background: linear-gradient(to top, hsl(40, .4, .85), hsl(220, .3, .5)) no-repeat center center fixed;
+//	background: url('../img/IMG_20140406_185956_755.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+a
+{
+	text-decoration: none;
+	color: #075fb9;
+	transition: all .2s;
+	
+	&:hover
+	{
+		text-decoration: underline;
+		color: #075fb9;
+	}
+}
+
+*:not(input)
+{
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+table, tbody, tr, td
+{
+	padding: 0;
+	margin: 0;
+	border-spacing: 0;
+}
+
+.container
+{
+	width: 980px;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: top;
+}
+
+.page
+{
+}
+
+.header
+{
+	.container;
+//	margin-top: 6px;
+	padding-top: 6px;
+//	height: 40px;
+	
+	.nav
+	{
+//		background-color: #ddd;
+//		background-image: linear-gradient(to top, rgb(242, 242, 248), rgb(248, 248, 250));
+//		background-image: linear-gradient(to top, rgba(248, 248, 252, .2), rgba(252, 252, 255, .2));
+//		background-image: linear-gradient(to top, fade(@primary, 3%), fade(@primary, 5%));
+		font-weight: bold;
+//		padding: 0 8px;
+//		border-bottom: 1px solid rgb(208, 215, 247);
+		overflow: hidden;
+
+		& > a
+		{
+			display: inline-block;
+			padding: 10px 10px;
+//			margin-right: 5px;
+			text-decoration: none;
+			color: fade(@inverse, 50%);
+			transition: all .2s;
+
+			&:hover
+			{
+				color: fade(@inverse, 80);
+//				background: rgba(208, 215, 247, .2);
+//				background-image: linear-gradient(to top, rgb(248, 248, 250), rgb(242, 242, 248));
+				background-image: linear-gradient(to top, fade(@primary, 5), fade(@primary, 8));
+			}
+		}
+	}
 }
 
 .content
 {
-	//
+	.container;
+	.padded;
+	background: #fff;
+	min-height: 500px;
+}
+
+.footer
+{
+	.container;
+	.padded;
+	.small;
+	.bold;
+	color: fade(@primary, 50);
+	
+	a { color: fade(@primary, 50); }
+	
+	.poweredby
+	{
+		float: right;
+	}
 }
