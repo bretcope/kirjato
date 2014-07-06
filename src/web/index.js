@@ -8,6 +8,7 @@ var Config = require('Config');
 var Enums = require('Enums');
 var Http = require('http');
 var Https = require('https');
+var Kirja = require('Kirja');
 var koa = require('koa');
 var koaBody = require('koa-better-body');
 var koaFavicon = require('koa-favicon');
@@ -15,6 +16,7 @@ var KoaJade = require('koa-jade');
 var koaMount = require('koa-mount');
 var koaStatic = require('koa-static');
 var koaTrail = require('koa-trail');
+var lessMiddleware = require('less-middleware');
 var Path = require('path');
 var thunkify = require('thunkify');
 
@@ -56,14 +58,31 @@ function setupMiddleware (app)
 	var isLocal = Config.tier === 'local';
 
 //	app.use(koaFavicon(Path.join(__dirname, 'static/favicon.ico')));
-	app.use(koaMount('/static', koaStatic(Path.join(__dirname, 'static'))));
+	
+	var cssDir = Path.resolve(__dirname, '../..', Config.settings.site.writablePath, 'css');
+	var less = thunkify(lessMiddleware(__dirname + '/less', {
+		dest: cssDir
+	}));
+	app.use(koaMount('/static/css', function * (next)
+	{
+		yield less(this.req, this.res);
+		yield next;
+	}));
+	
+	app.use(koaMount('/static/css', koaStatic(cssDir)));
+	app.use(koaMount('/static', koaStatic(__dirname + '/static')));
 	
 	app.use(KoaJade.middleware({
 		viewPath: Path.join(__dirname, 'views'),
 		debug: isLocal,
 		pretty: isLocal,
 		compileDebug: isLocal,
-		locals: { title: Config.settings.site.name }
+		locals: {
+			title: Config.settings.site.name,
+			css: {
+				common: Kirja.url('/static/css/common.css')
+			}
+		}
 	}));
 	
 	app.use(Controllers.Auth.authMiddleware);
@@ -81,9 +100,9 @@ function setupRoutes (app)
 	app.post('/login', Controllers.Auth.userLoginPost);
 	app.get('/logout', Controllers.Auth.userLogoutGet);
 	
-	// --- Normal User Routes ---
+	// --- Contributor Routes ---
 	
-	app.get('*', Controllers.Auth.filterLowerThan(Enums.UserTypes.NORMAL, true));
+	app.get('*', Controllers.Auth.filterLowerThan(Enums.UserTypes.CONTRIBUTOR, true));
 	app.get('/scribe', Controllers.Scribe.indexGet);
 }
 
