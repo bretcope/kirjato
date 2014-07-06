@@ -1,4 +1,7 @@
 extends layout
 
 block content
-	p= message
+	- if (message.encode)
+		p #{message.text}
+	- else
+		p !{message.text}

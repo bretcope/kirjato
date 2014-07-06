@@ -114,6 +114,7 @@ AuthController.initialAdminGet = function * ()
 	var user = new User();
 	user.displayName = 'Initial Admin';
 	user.email = this.request.query.email;
+	user.type = Enums.UserTypes.ADMIN;
 	yield user.passwordSet('admin');
 	
 	try
@@ -125,7 +126,10 @@ AuthController.initialAdminGet = function * ()
 		yield Config.updateSetting('auth.allowInitialAdmin', false, tran);
 		yield tran.commit();
 		
-		yield this.render('message', { message: 'An initial admin user has been setup using the email address '+ user.email +'. Use the password "admin" the first time you login.' });
+		var loginUrl = Kirja.url(AuthController.userLoginGet);
+		var msg = 'An initial admin user has been setup using the email address ' + user.email + '. ' +
+			'Use the password "admin" the first time you login. <a href="'+ loginUrl +'">Click Here</a> to go to the login page.';
+		yield this.render('message', { message: { text: msg, encode: false } });
 	}
 	catch (ex)
 	{
