@@ -75,26 +75,32 @@ function setupMiddleware (app)
 	app.use(koaMount('/static/css', koaStatic(cssDir)));
 	app.use(koaMount('/static', koaStatic(__dirname + '/static')));
 	
+	var locals = {
+		title: Config.settings.site.name,
+		nav: {
+			home: Kirja.url('/'),
+			scribe: Kirja.url('/scribe'),
+			login: Kirja.url('/login'),
+			logout: Kirja.url('/logout')
+		},
+		css: {
+			common: Kirja.url('/static/css/common.css'),
+			highlight: Kirja.url(Config.settings.theme.codeCss)
+		},
+		img: {
+			logo: Kirja.url(Config.settings.site.logoImage)
+		}
+	};
+	
+	if (!Config.settings.markdown.highlightJs)
+		locals.css.highlight = false;
+	
 	app.use(KoaJade.middleware({
 		viewPath: Path.join(__dirname, 'views'),
 		debug: isLocal,
 		pretty: isLocal,
 		compileDebug: isLocal,
-		locals: {
-			title: Config.settings.site.name,
-			nav: {
-				home: Kirja.url('/'),
-				scribe: Kirja.url('/scribe'),
-				login: Kirja.url('/login'),
-				logout: Kirja.url('/logout')
-			},
-			css: {
-				common: Kirja.url('/static/css/common.css')
-			},
-			img: {
-				logo: Kirja.url(Config.settings.site.logoImage)
-			}
-		}
+		locals: locals
 	}));
 	
 	app.use(Controllers.Auth.authMiddleware);

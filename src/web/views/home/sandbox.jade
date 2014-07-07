@@ -1,4 +1,10 @@
 extends ../layout
 
 block Content
-	| This is some content
+	.post
+		h1 This is the title of the test Post
+		.byline
+			| Posted by 
+			a(href='') Bret Copeland
+			|  on July 23, 2018
+		.body !{post}

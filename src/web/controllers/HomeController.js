@@ -4,6 +4,7 @@
  * ---------------------------------------------------------------- */
 
 var debug = require('neo-debug')('Kirj.Home');
+var Kirja = require('Kirja');
 
 /* =============================================================================
  * 
@@ -37,7 +38,9 @@ HomeController.indexGet = function * ()
 
 HomeController.sandboxGet = function * ()
 {
-	yield this.render('home/sandbox');
+	var md = require('fs').readFileSync(__dirname + '/Test.md', {encoding:'utf8'});
+	var html = Kirja.markdown(md);
+	yield this.render('home/sandbox', { post: html });
 };
 
 /* -------------------------------------------------------------------

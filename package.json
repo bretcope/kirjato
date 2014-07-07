@@ -12,6 +12,7 @@
   "dependencies": {
     "co": "^3.0.6",
     "co-pg": "^1.2.3",
+    "highlight.js": "^8.0.0",
     "koa": "^0.8.1",
     "koa-better-body": "^1.0.3",
     "koa-favicon": "^1.1.0",

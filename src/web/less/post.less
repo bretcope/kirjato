@@ -1,0 +1,101 @@
+@import "variables";
+@import "text";
+
+.post
+{
+	> h1
+	{
+		color: @secondary;
+		font-size: (@post-font-size * 1.7);
+	}
+	
+	> .byline
+	{
+		color: fade(@primary, 50);
+		.italic;
+		margin: (@padding-unit / 2) 0 0 @padding-unit;
+		a { color: fade(@primary, 50); }
+	}
+	
+	> .body
+	{
+		text-align: justify;
+		font-size: @post-font-size;
+		font-family: @post-font-family;
+		line-height: @post-line-height;
+		
+		> p, > ol, > ul, > table, > blockquote
+		{
+			margin: 1em 0;
+		}
+		
+		p
+		{
+			code
+			{
+				padding: 0 4px;
+				.post-code;
+			}
+		}
+		
+		pre
+		{
+			padding: @padding-unit;
+			.post-code;
+		}
+		
+		ol, ul
+		{
+			padding-left: (@padding-unit * 4);
+		}
+		
+		table
+		{
+			border-width: 1px 1px 0 0;
+			border-style: solid;
+			border-color: @primary;
+		}
+		
+		th, td
+		{
+			padding: @padding-unit;
+			border-width: 0 0 1px 1px;
+			border-style: solid;
+			border-color: @primary;
+			
+			:first-of-type { margin: 0 }
+		}
+		
+//		h1, h2, h3, h4, h5, h6
+//		{
+//			color: @tertiary;
+//		}
+		
+		h1 { font-size: (@post-font-size * 1.6); }
+		h2 { font-size: (@post-font-size * 1.4); }
+		h3 { font-size: (@post-font-size * 1.2); }
+		h4 { font-size: (@post-font-size * 1.1); }
+		h5 { font-size: (@post-font-size * 1.0); }
+		h6 { font-size: (@post-font-size * .9); }
+		
+		blockquote
+		{
+			color: fade(@primary, 70);
+			margin-left: (@padding-unit * 2);
+		}
+		
+		img
+		{
+			max-width: 100%;
+		}
+	}
+}
+
+.post-code
+{
+	background: #eee;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	font-family: @code-font-family;
+	font-size: @code-font-size;
+}

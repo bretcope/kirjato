@@ -1,6 +1,6 @@
 @import "text";
-@import "boxes";
-@import "colors";
+@import "post";
+@import "variables";
 
 html, body
 {
@@ -16,13 +16,13 @@ html, body
 a
 {
 	text-decoration: none;
-	color: #075fb9;
+	color: @secondary;
 	transition: all .2s;
 	
 	&:hover
 	{
 		text-decoration: underline;
-		color: #075fb9;
+		color: @secondary;
 	}
 }
 
@@ -83,15 +83,16 @@ table, tbody, tr, td
 .content
 {
 	.container;
-	.padded;
+	padding: (@padding-unit * 2);
 	background: #fff;
 	min-height: 500px;
+	box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
 }
 
 .footer
 {
 	.container;
-	.padded;
+	padding: (@padding-unit * 2);
 	.small;
 	.bold;
 	color: fade(@primary, 50);

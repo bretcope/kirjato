@@ -3,7 +3,10 @@ html
 	head
 		title= title
 		link(rel='shortcut icon', href='/static/img/icon.png')
-		link(type='text/css', rel='stylesheet', href=css.common)
+		block Css
+			link(type='text/css', rel='stylesheet', href=css.common)
+			- if (css.highlight)
+				link(type='text/css', rel='stylesheet', href=css.highlight)
 	body
 		.page
 			.header
