@@ -1,4 +1,25 @@
 ﻿
+  CREATE TABLE users
+(
+  id serial NOT NULL,
+  display_name character varying(50) NOT NULL,
+  email character varying(250) NOT NULL,
+  hash text NOT NULL,
+  salt text NOT NULL,
+  created_date timestamp with time zone DEFAULT now(),
+  deleted_date timestamp with time zone,
+  type smallint NOT NULL,
+  CONSTRAINT pk_users PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE UNIQUE INDEX ux_users_email
+  ON users
+  USING btree
+  (email COLLATE pg_catalog."default");
+  
 CREATE TABLE posts
 (
   id serial NOT NULL,
@@ -49,24 +70,4 @@ CREATE UNIQUE INDEX ux_settings_name
   USING btree
   (name COLLATE pg_catalog."default");
 
-  CREATE TABLE users
-(
-  id serial NOT NULL,
-  display_name character varying(50) NOT NULL,
-  email character varying(250) NOT NULL,
-  hash text NOT NULL,
-  salt text NOT NULL,
-  created_date timestamp with time zone DEFAULT now(),
-  deleted_date timestamp with time zone,
-  type smallint NOT NULL,
-  CONSTRAINT pk_users PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-
-CREATE UNIQUE INDEX ux_users_email
-  ON users
-  USING btree
-  (email COLLATE pg_catalog."default");
   
