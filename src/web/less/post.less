@@ -84,21 +84,33 @@
 			margin-left: (@padding-unit * 2);
 		}
 		
-		img
+		figure
 		{
-			max-width: 100%;
-			
-			&.post-image-left
+			display: table;
+
+			> img { width: 100%; }
+
+			&.left
 			{
 				float: left;
 				margin: @padding-unit @padding-unit @padding-unit 0;
 			}
 			
-			&.post-image-right
+			&.right
 			{
 				float: right;
 				margin: @padding-unit 0 @padding-unit @padding-unit;
 			}
+		}
+		
+		figcaption
+		{
+			display: table-caption;
+			caption-side: bottom;
+			line-height: @post-line-height * .8;
+			color: fade(@primary, 70);
+			text-align: center;
+			.smaller;
 		}
 	}
 }
