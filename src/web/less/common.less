@@ -8,7 +8,7 @@ html, body
 	.normal-font;
 	.normal-size;
 	color: @primary;
-	background: linear-gradient(to top, hsl(40, .4, .85), hsl(220, .3, .5)) no-repeat center center fixed;
+	background: linear-gradient(to top, hsl(200, .4, .5), hsl(220, .4, .3)) no-repeat center center fixed;
 //	background: url('../img/IMG_20140406_185956_755.jpg') no-repeat center center fixed;
 	background-size: cover;
 }
@@ -68,13 +68,13 @@ table, tbody, tr, td
 			display: inline-block;
 			padding: 10px 10px;
 			text-decoration: none;
-			color: fade(@inverse, 50%);
+			color: @nav-color;
 			transition: all .2s;
 
 			&:hover
 			{
-				color: fade(@inverse, 80);
-				background-image: linear-gradient(to top, fade(@primary, 5), fade(@primary, 8));
+				color: @nav-color-hover;
+				background-image: linear-gradient(to top, fade(@nav-background-color-hover, 40), fade(@nav-background-color-hover, 10));
 			}
 		}
 	}
